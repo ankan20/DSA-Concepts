@@ -151,6 +151,33 @@ void InsertionInpos(struct Node *p,int data,int pos){
     }
 }
 
+//Inserting a element in a sorted LL
+void SortedInsert(struct Node *p,int data){
+    
+    struct Node *t,*q=NULL;
+    t=(struct Node *)malloc(sizeof(struct Node));
+    t->data=data;
+    t->next=NULL;
+    if(first==NULL){
+        first=t;
+    }
+   
+   else{
+    while(p && p->data<data){
+        q=p;
+        p=p->next;
+    }
+    if(p==first){
+        t->next=first;
+        first=t;
+    }
+    else{
+        t->next=q->next;
+        q->next=t;
+    }
+   }
+}
+
 int main()
 {   
     struct Node *temp;
