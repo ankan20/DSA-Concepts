@@ -128,6 +128,29 @@ struct Node *Rsearch(struct Node *p,int key){
     return Rsearch(p->next,key);
 }
 
+//Insertion in LL
+void InsertionInpos(struct Node *p,int data,int pos){
+    struct Node *t;
+    t=(struct Node *)malloc(sizeof(struct Node));
+    t->data=data;
+    if(pos <0 || pos >Count(p)){
+        return;
+    }
+    else if(pos==0){
+        t->next=first;
+        first=t;
+    }
+    else if(pos>0){
+        struct Node *temp;
+        temp=p;
+        for(int i=0;i<pos-1;i++){
+            temp=temp->next;
+        }
+        t->next=temp->next;
+        temp->next=t;
+    }
+}
+
 int main()
 {   
     struct Node *temp;
@@ -139,11 +162,14 @@ int main()
     //printf("Total number of node is %d",Rcount(first));
     //printf("Sum of the elements is %d ",Rsum(first));
     //printf("Maximum element in the LinkedList is %d ",Max(first));
-    temp=search(first,10);
-    if(temp)
-        printf("Key is Found %d\n",temp->data);
-    else
-        printf("Key is not Found");
+    // temp=search(first,10);
+    // if(temp)
+    //     printf("Key is Found %d\n",temp->data);
+    // else
+    //     printf("Key is not Found");
+    display(first);
+    printf("\n");
+    InsertionInpos(first,30,0);
     display(first);
 
     return 0;
