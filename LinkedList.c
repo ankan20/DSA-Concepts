@@ -241,6 +241,51 @@ void RemoveDuplicate(struct Node *p){
     }
 }
 
+//Reversing a LinkedList using array ,reverse the data
+void Reverse1(struct Node *p){
+    int *A,i=0;
+    struct Node *q=p;
+    A=(int *)malloc(sizeof(int)*Count(p));
+    while(q!=NULL){
+
+        A[i]=q->data;
+        q=q->next;
+        i++;
+    }
+    q=p;
+    i--;
+    while(q!=NULL){
+        q->data=A[i];
+        q=q->next;
+        i--;
+    }
+}
+
+//Reverse a LinkedList using 3 pointer ,reverse the Links
+void Reverse2(struct Node *p){
+    struct Node *q=NULL,*r=NULL;
+    while(p!=NULL){
+        r=q;
+        q=p;
+        p=p->next;
+        q->next=r;
+    }
+    first=q;
+
+}
+
+//Recursive function for reversing a LinkeList
+void Reverse3(struct Node *q,struct Node *p){
+    if(p){
+        Reverse3(p,p->next);
+        p->next=q;
+    }
+    else{
+        first=q;
+    }
+
+}
+
 
 int main()
 {   
