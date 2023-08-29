@@ -224,6 +224,24 @@ int CheckSorted (struct Node *p){
     return 1;
 }
 
+//Delete duplicate elements from SORTED LinkedList
+void RemoveDuplicate(struct Node *p){
+    struct Node *q;
+    q=p->next;
+    while(q!=NULL){
+        if(p->data != q->data){
+            p=q;
+            q=q->next;
+        }
+        else{
+            p->next=q->next;
+            free(q);
+            q=p->next;
+        }
+    }
+}
+
+
 int main()
 {   
     struct Node *temp;
