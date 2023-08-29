@@ -210,6 +210,20 @@ int DeleteNode(struct Node *p,int index){
     }
 }
 
+//Check if LinkedList is sorted or not
+int CheckSorted (struct Node *p){
+    int x = INT32_MIN;
+    while(p!=NULL){
+
+        if(p->data < x){
+            return 0;
+        }
+        x=p->data;
+        p=p->next;
+    }
+    return 1;
+}
+
 int main()
 {   
     struct Node *temp;
