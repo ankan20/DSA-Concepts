@@ -178,6 +178,38 @@ void SortedInsert(struct Node *p,int data){
    }
 }
 
+//Deleting a element at given position
+int DeleteNode(struct Node *p,int index){
+
+    struct Node *q;
+    int x=-1,i;
+    //checking if index is valid or not
+    if(index < 1 || index > Count(p)){
+        return -1;
+    }
+
+    //If index is 1st 
+    if(index == 1){
+       q=first;
+       x=first->data;
+       first=first->next;
+       free (q);
+       return x;
+        
+    }
+    else {
+        for(i=0;i<index-1;i++){
+            q=p;
+            p=p->next;
+
+        }
+        q->next=p->next;
+        x=p->data;
+        free (p);
+        return x;
+    }
+}
+
 int main()
 {   
     struct Node *temp;
