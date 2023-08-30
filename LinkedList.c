@@ -4,7 +4,7 @@
 struct Node{
     int data;
     struct Node *next;
-}*first=NULL;
+}*first=NULL,*second=NULL,*third=NULL;
 
 void create(int A[],int n){
 
@@ -24,6 +24,28 @@ void create(int A[],int n){
     }
 
 }
+
+//Creating 2nd Linked List
+
+void create2(int A[],int n){
+
+    int i;
+    struct Node *t,*last;
+    second=(struct Node *)malloc(sizeof(struct Node));
+    second->data=A[0];
+    second->next=NULL;
+    last=second;
+
+    for(i=1;i<n;i++){
+        t=(struct Node *)malloc(sizeof(struct Node));
+        t->data=A[i];
+        t->next=NULL;
+        last->next=t;
+        last=t;
+    }
+
+}
+
 
 void display(struct Node *p){
     while(p!=NULL){
@@ -286,13 +308,68 @@ void Reverse3(struct Node *q,struct Node *p){
 
 }
 
+//Concat two sorted LinkedList
+void Concat(struct Node *p,struct Node *q){
+    third=p;
+    while(p->next!=NULL){
+        p=p->next;
+    }
+    p->next=q;
+
+}
+
+//Merging two SORTED LinkedList
+void Merge(struct Node *p,struct Node *q){
+    struct Node *last;
+    if(p->data < q->data){
+        third=last=p;
+        p=p->next;
+        third->next=NULL;
+    }
+    else{
+        third=last=q;
+        q=q->next;
+        third->next=NULL;
+    }
+    while(p && q){
+        if(p->data < q->data){
+            last->next=p;
+            last=p;
+            p=p->next;
+            last->next=NULL;
+        }
+        else{
+            last->next=q;
+            last=q;
+            q=q->next;
+            last->next=NULL;
+        }
+    }
+    if(p){
+        last->next=p;
+    }
+    if(q){
+        last->next=q;
+    }
+}
+
+
 
 int main()
 {   
     struct Node *temp;
-    int A[]={3,5,7,10,15,7,6,10,100};
+     int A[]={10,20,30,40,50};
+     int B[]={5,15,25,35,45};
 
-    create(A,9);
+
+    create(A,5);
+    create2(B,5);
+    printf("\nFirst\n");
+    display(first);
+    printf("\n");
+    printf("\nSecond\n");
+    display(second);
+    printf("\n");
     //display(first);
     //Rdisplay(first);
     //printf("Total number of node is %d",Rcount(first));
@@ -303,10 +380,32 @@ int main()
     //     printf("Key is Found %d\n",temp->data);
     // else
     //     printf("Key is not Found");
-    display(first);
-    printf("\n");
-    InsertionInpos(first,30,0);
-    display(first);
+    
+    // InsertionInpos(first,30,0);
+    // display(first);
+    // SortedInsert(first,12);
+    // display(first);
+    // printf("\n");
+    // SortedInsert(first,1);
+    //  display(first);
+    // printf("\n");
+    // SortedInsert(first,200);
+    // display(first);
+    // printf("\n");
+
+    // printf("Deleted element is %d\n",DeleteNode(first,4));
+    // display(first);
+    // printf("Checking LinkedList is sorted or not %d\n",CheckSorted(first));
+    // RemoveDuplicate(first);
+    // display(first);
+
+    // Reverse3(NULL,first);
+    // display(first);
+    // Concat(first,second);
+    // display(third);
+    Merge(first,second);
+    display(third);
+
 
     return 0;
 }
