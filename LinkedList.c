@@ -64,7 +64,7 @@ void Rdisplay(struct Node *p){
 //counting total number of node
 int Count(struct Node *p){
     int c=0;
-    while(p!=NULL){       //we can also write as while(p)---->itwill false when p=0 or p=NULL and true otherwise
+    while(p!=NULL){       //we can also write as while(p)---->it will false when p=0 or p=NULL and true otherwise
         p=p->next;
         c++;
     }
@@ -353,23 +353,45 @@ void Merge(struct Node *p,struct Node *q){
     }
 }
 
+//Check if Loop Exist or not 
+int isLoop(struct Node *f){
+    struct Node *p,*q;
+    p=q=f;
+    do{
+        p=p->next;
+        q=q->next;
+        q=q!=NULL ? q->next :NULL;
+    }while(q && p && p!=q);
+    if(p==q){
+        return 1;
+    }
+    else {
+        return 0;
+    }
+}
+
 
 
 int main()
 {   
     struct Node *temp;
-     int A[]={10,20,30,40,50};
-     int B[]={5,15,25,35,45};
-
-
+    //struct Node *t1,*t2;
+    int A[]={10,20,30,40,50};
+    // int B[]={5,15,25,35,45};
     create(A,5);
-    create2(B,5);
-    printf("\nFirst\n");
-    display(first);
-    printf("\n");
-    printf("\nSecond\n");
-    display(second);
-    printf("\n");
+    // t1=first->next->next;
+    // t2=first->next->next->next->next;
+    // t2->next=t1;
+   
+    //create2(B,5);
+    // printf("\nFirst\n");
+    // display(first);
+    // printf("\n");
+
+
+    // printf("\nSecond\n");
+    // display(second);
+    // printf("\n");
     //display(first);
     //Rdisplay(first);
     //printf("Total number of node is %d",Rcount(first));
@@ -403,9 +425,12 @@ int main()
     // display(first);
     // Concat(first,second);
     // display(third);
-    Merge(first,second);
-    display(third);
+    // Merge(first,second);
+    // display(third);
+    // printf("Address of 40 is %d ",search(first,40));
+    // display(first);
 
+    printf("%d\n",isLoop(first));
 
     return 0;
 }
