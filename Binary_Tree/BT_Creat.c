@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include "Queue_Header.h"
+#include "Stack_Header.h"
 struct Node *root = NULL;
 
 void Create()
@@ -8,7 +9,7 @@ void Create()
     struct Node *p,*t;
     int x;
     struct Queue q;
-    create(&q,100);
+    createQueue(&q,100);
     printf("Enter root value ");
     scanf("%d",&x);
     root=(struct Node *)malloc(sizeof(struct Node));
@@ -47,26 +48,134 @@ void preorder(struct Node *p){
 }
 void inorder(struct Node *p){
     if(p){
-        
-        ineorder(p->lchild);
+        inorder(p->lchild);
         printf("%d ",p->data);
-        ineorder(p->rchild);
+        inorder(p->rchild);
     }
 }
+
 void postorder(struct Node *p){
     if(p){
-        
         postorder(p->lchild);
-        
         postorder(p->rchild);
         printf("%d ",p->data);
     }
 }
 
 
+//Iterative function for tree traversal
+void IPreorder(struct Node *p)
+{
+    struct Stack stk;
+    Stackcreate(&stk,100);
+
+    while(p!=NULL || !isEmptyStack(stk))
+    {
+        if(p)
+        {
+            printf("%d ",p->data);
+            push(&stk,p);
+            p=p->lchild;
+        }
+        else{
+            p=pop(&stk);
+            p=p->rchild;
+        }
+    }
+}
+
+void Iinorder(struct Node *p)
+{
+    struct Stack stk;
+    Stackcreate(&stk,100);
+    while(p!=NULL || !isEmptyStack(stk))
+    {
+        if(p)
+        {
+            push(&stk,p);
+            p=p->lchild;
+        }
+        else{
+            p=pop(&stk);
+            printf("%d ",p->data);
+            p=p->rchild;
+        }
+    }
+}
+
+// void Ipostorder(struct Node *p)
+// {
+//     struct Stack stk;
+//     Stackcreate(&stk, 100);
+//     long int temp;
+    
+//     while (p != NULL || !isEmptyStack(stk))
+//     {
+//         if (p)
+//         {
+//             push(&stk, (long int)p);
+//             p = p->lchild;
+//         }
+//         else
+//         {
+//             temp = pop(&stk);
+//             if (temp > 0)
+//             {
+//                 push(&stk, -temp);
+//                 p = (struct Node *)(-temp)->rchild;
+//             }
+//             else
+//             {
+//                 printf("%d ", ((struct Node *)(-temp))->data);
+//                 p = NULL;
+//             }
+//         }
+//     }
+// }
+
+
+
+//LevelOrder Traversal
+void Levelorder(struct Node *p)
+{   
+    struct Queue q;
+    createQueue(&q,100);
+    printf("%d ",p->data);
+    enqueue(&q,p);
+    while (!isEmpty(q))
+    {
+        /* code */
+        p=dequeue(&q);
+        if(p->lchild)
+        {
+            printf("%d ",p->lchild->data);
+            enqueue(&q,p->lchild);
+        }
+        if(p->rchild)
+        {
+            printf("%d ",p->rchild->data);
+            enqueue(&q,p->rchild);
+        }
+    }
+    
+}
+
 int main()
 {
     Create();
+    printf("Preorder using recursion\n");
     preorder(root);
+    printf("\nPreorder using loop\n");
+    IPreorder(root);
+    printf("\nInorder using recursion\n");
+    inorder(root);
+    printf("\nInorder using loop\n");
+    Iinorder(root);
+    // printf("\nPostorder using loop \n");
+    // Ipostorder(root);
+    printf("\nPostorder using recursion\n");
+    postorder(root);
+    printf("\nLevel order\n");
+    Levelorder(root);
     return 0;
 }
